@@ -129,14 +129,14 @@ int main(void)
             close(sockfd); // child doesn't need the listener, it'll be closed for this process only (child)
             // Now let's send something
             char *msg = "Welcome to my socket server!";
-            if (send(new_fd, msg, sizeof msg, 0) == -1)
+            if (send(new_fd, msg, strlen(msg), 0) == -1)
             {
                 perror("failed to send");
             }
             while (1)
             {
-                char buffer[1024];
-                int bytes_received = recv(new_fd, buffer, sizeof buffer - 1, 0); // receive from my socket and store in buffer
+                char buffer[2048];
+                int bytes_received = recv(new_fd, buffer, sizeof buffer, 0); // receive from my socket and store in buffer
                 if (bytes_received <= 0)
                 {
                     perror("client disconnected or recv error");
